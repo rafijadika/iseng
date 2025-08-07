@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ada Sesuatu Untukmu!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffe0b2;
+      color: #5d4037;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .heart-container {
+      position: relative;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .heart {
+      position: relative;
+      width: 100px;
+      height: 90px;
+      background-color: #e57373;
+      transform: rotate(-45deg);
+      border-radius: 50% 50% 0 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      animation: pulse 1.5s infinite alternate;
+      transition: transform 0.3s;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 90px;
+      background-color: #e57373;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -50px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 50px;
+      top: 0;
+    }
+
+    .label {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      color: white;
+      font-weight: bold;
+      font-size: 1em;
+      user-select: none;
+    }
+
+    .gombal-text {
+      font-size: 1.5em;
+      color: #d81b60;
+      display: none;
+      animation: fadeInOut 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: rotate(-45deg) scale(1); }
+      100% { transform: rotate(-45deg) scale(1.1); }
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    /* Confetti effect */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #ffcc80;
+      animation: confetti-fall 2s linear forwards;
+      opacity: 0.8;
+      z-index: 2;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(300px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Cupid Arrow */
+    .arrow {
+      position: absolute;
+      width: 120px;
+      height: 4px;
+      background-color: #d32f2f;
+      transform: rotate(45deg);
+      top: -50px;
+      left: -150px;
+      animation: arrow-fly 1.2s ease-out forwards;
+      z-index: 1;
+    }
+
+    .arrow::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: -6px;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 15px solid #d32f2f;
+    }
+
+    @keyframes arrow-fly {
+      0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(300px, 300px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="heart-container" onclick="showGombal(); showConfetti(event); shootArrow();">
+    <div class="heart">
+      <div class="label">Pencet</div>
+    </div>
+  </div>
+
+  <div id="gombalArea" class="gombal-text">
+    Eh, kamu tahu gak bedanya kamu sama bintang?<br>
+    Kalau bintang itu di langit, kalau kamu di hatiku. <span style="color: #ffab91;">💖</span>
+  </div>
+
+  <script>
+    function showGombal() {
+      document.getElementById('gombalArea').style.display = 'block';
+    }
+
+    function showConfetti(event) {
+      for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = (Math.random() * 100 + event.clientX - 50) + 'px';
+        confetti.style.top = (event.clientY - 50) + 'px';
+        confetti.style.backgroundColor = getRandomColor();
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 2000);
+      }
+    }
+
+    function getRandomColor() {
+      const colors = ['#ffab91', '#f06292', '#ba68c8', '#4dd0e1', '#81c784'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function shootArrow() {
+      const arrow = document.createElement('div');
+      arrow.classList.add('arrow');
+      document.body.appendChild(arrow);
+
+      setTimeout(() => {
+        arrow.remove();
+      }, 1300);
+    }
+  </script>
+
+</body>
+</html>
