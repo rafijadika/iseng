@@ -11,19 +11,20 @@
       padding: 0;
       background-color: #ffe0b2;
       color: #5d4037;
-      text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      overflow: hidden;
+      text-align: center;
+      overflow-x: hidden;
+      padding: 20px;
     }
 
     .heart-container {
       position: relative;
       cursor: pointer;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .heart {
@@ -65,15 +66,17 @@
       transform: translate(-50%, -50%) rotate(45deg);
       color: white;
       font-weight: bold;
-      font-size: 1em;
+      font-size: 1rem;
       user-select: none;
     }
 
     .gombal-text {
-      font-size: 1.5em;
+      font-size: 1.2rem;
       color: #d81b60;
       display: none;
       animation: fadeInOut 2s ease-in-out infinite alternate;
+      max-width: 90%;
+      line-height: 1.6;
     }
 
     @keyframes pulse {
@@ -139,6 +142,28 @@
       100% {
         transform: translate(300px, 300px) rotate(45deg);
         opacity: 0;
+      }
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      .heart {
+        width: 80px;
+        height: 72px;
+      }
+
+      .heart::before,
+      .heart::after {
+        width: 80px;
+        height: 72px;
+      }
+
+      .label {
+        font-size: 0.9rem;
+      }
+
+      .gombal-text {
+        font-size: 1rem;
       }
     }
   </style>
